@@ -27,3 +27,20 @@ class BookModel(models.Model):
     class Meta:
         verbose_name = 'книгу'
         verbose_name_plural = 'книги'
+
+
+class Review(models.Model):
+    ESTIMATES = (
+        ('1', '1'),
+        ('2', '2'),
+        ('3', '3'),
+        ('4', '4'),
+        ('5', '5'),
+    )
+    choice_book = models.ForeignKey(BookModel, on_delete=models.CASCADE, related_name='books')
+    created_at = models.DateField(auto_now_add=True)
+    review_text = models.TextField(default="Отличная книга")
+    grade = models.TextField(max_length=10, choices=ESTIMATES, default='3')
+
+    def __str__(self):
+        return f'{self.review_text} - {self.choice_book.title}'

@@ -1,0 +1,31 @@
+.container {
+    text-align: center;
+    padding: 20px;
+}
+
+.buttons {
+    margin-bottom: 20px;
+}
+
+.btn {
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    background-color: #d8cdcd;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.btn a{
+    text-decoration: none;
+}
+
+.btn:hover {
+    background-color: #b0f6ec;
+}
+
+.content {
+    padding: 15px;
+    background: #f4f4f4;
+    border-radius: 5px;
+}
