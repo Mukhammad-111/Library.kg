@@ -44,3 +44,6 @@ class Review(models.Model):
 
     def __str__(self):
         return f'{self.review_text} - {self.choice_book.title}'
+
+
+

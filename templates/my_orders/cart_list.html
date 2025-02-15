@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h1>Корзина</h1>
+<ul>
+  {% for i in cart_list %}
+  <li>
+    <p>Книга: {{ i.choice_book }}</p>
+    <p>Обшая количество: {{ i.quantity }}</p>
+    <p>Дата: {{ i.created_at }}</p>
+    <p>Цена: {{ i.choice_book.price }}</p>
+      <button><a href="/cart_list/{{ i.id }}/delete/">Удалить</a></button>
+      <button><a href="/cart_list/{{ i.id }}/update/">Редактировать</a></button>
+      <button><a href="/cart_list/{{ i.id }}/order/">Заказать</a></button>
+  </li>
+  {% endfor %}
+</ul>
+
+</body>
+</html>

@@ -1,40 +1,22 @@
-from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse, JsonResponse
+from django.shortcuts import render, get_object_or_404, redirect
+from django.http import HttpResponse
 from datetime import datetime
-from . import models
-from django.views.decorators.csrf import csrf_exempt
-from .models import Review, BookModel
+from . import models, forms
 
 
-@csrf_exempt
-def add_review(request, id):
+#create review
+def create_review_view(request):
     if request.method == "POST":
-        try:
-            book = BookModel.objects.get(id=id)
-            review_text = request.POST.get("review_text", "").strip()
-            grade = request.POST.get("grade", "3")
+        form = forms.CreateReviewForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save(commit=False)
+            book_id = form.cleaned_data['choice_book'].id
+            form.save()
+            return redirect('book_detail', id=book_id)
+    else:
+        form = forms.CreateReviewForm()
+    return render(request, template_name='create_review.html', context={'form': form,})
 
-            if not review_text:
-                return JsonResponse({"success": False, "error": "Комментарий не может быть пустым!"})
-
-            new_review = Review.objects.create(
-                choice_book=book,
-                review_text=review_text,
-                grade=grade
-            )
-
-            return JsonResponse({
-                "success": True,
-                "review_text": new_review.review_text,
-                "grade": new_review.grade,
-                "created_at": datetime.now().strftime("%Y-%m-%d %H:%M")
-            })
-        except BookModel.DoesNotExist:
-            return JsonResponse({"success": False, "error": "Книга не найдена!"})
-        except Exception as e:
-            return JsonResponse({"success": False, "error": str(e)})
-
-    return JsonResponse({"success": False, "error": "Неверный метод запроса!"})
 
 def book_list_view(request):
     if request.method == "GET":

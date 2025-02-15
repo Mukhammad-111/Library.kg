@@ -3,6 +3,8 @@
 <div class="container mt-4 content">
     <div class="row justify-content-center">
         <!-- Пример карточки книги -->
+        <button><a href="{% url 'create_review' %}">Оставить комментарий </a></button>
+
         {% for i in book %}
         <div class="col-md-4 mb-4">
             <div class="card" style="width: 100%;">
@@ -15,6 +17,7 @@
             </div>
         </div>
         {% endfor %}
+
         <!-- Добавьте дополнительные карточки книг здесь -->
     </div>
 </div>
