@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Книги с BookHouse</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+            margin-top: 20px;
+            font-size: 28px;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+        .book-card {
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .book-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        .book-card img {
+            max-width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+        .book-card h2 {
+            font-size: 20px;
+            margin: 10px 0;
+            color: #343a40;
+        }
+        .book-card p {
+            margin: 5px 0;
+            color: #6c757d;
+            font-size: 16px;
+        }
+        .price {
+            font-weight: bold;
+            color: #e63946;
+            font-size: 18px;
+        }
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<h1>Книги с сайта <a href="https://bookhouse.kg/ru/ebook/" target="_blank">BookHouse</a></h1>
+
+<div class="container">
+    {% for i in book_house %}
+    <div class="book-card">
+        <img src="{{ i.image.url }}" alt="{{ i.title }}">
+        <h2>{{ i.title }}</h2>
+        <p>Автор: <strong>{{ i.author }}</strong></p>
+        <p class="price">Цена: {{ i.price }}</p>
+    </div>
+    {% endfor %}
+</div>
+
+</body>
+</html>
+
