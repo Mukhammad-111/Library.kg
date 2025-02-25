@@ -31,10 +31,11 @@ class CreateReviewView(generic.CreateView):
     def form_valid(self, form):
         self.object = form.save()
         return super().form_valid(form)
-        
+
     def get_success_url(self):
         return reverse('book_detail', kwargs={'id': self.object.choice_book.id})
 
+    
 # def create_review_view(request):
 #     if request.method == "POST":
 #         form = forms.CreateReviewForm(request.POST, request.FILES)

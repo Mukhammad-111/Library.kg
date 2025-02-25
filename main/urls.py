@@ -9,6 +9,7 @@ urlpatterns = [
     path('', include('clothes.urls')),
     path('', include('my_orders.urls')),
     path('', include('parser_app.urls')),
+    path('', include('candidates.urls')),
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
