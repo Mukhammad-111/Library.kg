@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ recipe_id.title }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .recipe-card {
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            max-width: 600px;
+            margin: auto;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .recipe-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .recipe-info h2 {
+            margin: 10px 0;
+            color: #333;
+        }
+
+        .recipe-info p {
+            color: #777;
+        }
+
+        .ingredients {
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .ingredients ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .ingredients li {
+            background: #e9ecef;
+            padding: 10px;
+            margin-bottom: 5px;
+            border-radius: 5px;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 12px;
+            text-decoration: none;
+            color: white;
+            background: #007BFF;
+            border-radius: 5px;
+        }
+
+        .back-btn {
+            background: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>{{ recipe_id.title }}</h1>
+        <div class="recipe-card">
+            <img src="{{ recipe_id.image.url }}" alt="{{ recipe_id.title }}">
+            <div class="recipe-info">
+                <h2>Описание</h2>
+                <p>{{ recipe_id.description }}</p>
+            </div>
+
+            <div class="ingredients">
+                <h2>Ингредиенты</h2>
+                <ul>
+                    {% for ingredient in ingredients %}
+                        <li>{{ ingredient.name }} — {{ ingredient.quantity }}</li>
+                    {% empty %}
+                        <li>Ингредиенты не добавлены.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <a href="{% url 'recipe_list' %}" class="btn back-btn">Назад к списку</a>
+        </div>
+    </div>
+</body>
+</html>

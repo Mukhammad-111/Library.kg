@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список рецептов</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .recipe-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .recipe-card {
+            background: #fff;
+            border-radius: 10px;
+            padding: 15px;
+            width: 300px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+
+        .recipe-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .recipe-info h2 {
+            margin: 10px 0;
+            color: #333;
+        }
+
+        .recipe-info p {
+            color: #777;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 12px;
+            text-decoration: none;
+            color: white;
+            background: #007BFF;
+            border-radius: 5px;
+        }
+
+        .add-btn {
+            display: block;
+            width: 200px;
+            margin: 10px auto;
+            background: #28a745;
+        }
+
+        .delete-btn {
+            background: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Список рецептов</h1>
+        <a href="{% url 'create_recipe' %}" class="btn add-btn">Добавить рецепт</a>
+
+        <div class="recipe-list">
+            {% for recipe in recipes %}
+                <div class="recipe-card">
+                    <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}">
+                    <div class="recipe-info">
+                        <h2>{{ recipe.title }}</h2>
+                        <p>{{ recipe.description|truncatewords:20 }}</p>
+                        <a href="{% url 'browse_recipe' recipe.id %}" class="btn">Просмотреть</a>
+                        <a href="{% url 'delete_recipe' recipe.id %}" class="btn delete-btn">Удалить</a>
+                    </div>
+                </div>
+            {% empty %}
+                <p>Пока нет рецептов. Добавьте новый!</p>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
