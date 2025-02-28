@@ -1,8 +1,14 @@
 from django.shortcuts import render, redirect, get_object_or_404
+
+
 from . import models, forms
 from django.views import generic
+from django.views.decorators.cache import cache_page
+from django.utils.decorators import method_decorator
+from django.core.cache import cache
 
 
+# @method_decorator(cache_page(60*15), name='dispatch')
 class CartListView(generic.ListView):
     template_name = 'my_orders/cart_list.html'
     context_object_name = 'cart_list'
@@ -10,6 +16,11 @@ class CartListView(generic.ListView):
 
     def get_queryset(self):
         return self.model.objects.all().order_by('-id')
+        # orders = cache.get('orders')
+        # if not orders:
+        #     orders = self.model.objects.all().order_by('-id')
+        #     cache.set('orders', orders, 60*15)
+        # return orders
 
 
 # def cart_list_view(request):

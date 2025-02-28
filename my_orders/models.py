@@ -10,3 +10,4 @@ class MyOrdersModel(models.Model):
 
     def __str__(self):
         return f'{self.choice_book} x {self.quantity}'
+

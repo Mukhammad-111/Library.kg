@@ -1,27 +1,39 @@
 from pathlib import Path
+from dotenv import load_dotenv
+from . import admin_panel
 import os
 
-from django.conf.global_settings import MEDIA_URL, MEDIA_ROOT, STATICFILES_DIRS
+
+JAZZMIN_SETTINGS = admin_panel.JAZZMIN_SETTINGS
+JAZZMIN_UI_TWEAKS = admin_panel.JAZZMIN_UI_TWEAKS
+
+
+from django.conf.global_settings import MEDIA_URL, MEDIA_ROOT, STATICFILES_DIRS, DEBUG, STATIC_ROOT
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+load_dotenv()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-^=fxd%in4-*loz$pirh$)mt#ke7*i159!v#s*3x)j4*a8=_f#0'
+SECRET_KEY = os.getenv('SK')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+if os.getenv('DEBUG')=='on':
+    DEBUG = True
+else:
+    DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -112,6 +124,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'

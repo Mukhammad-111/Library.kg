@@ -9,3 +9,4 @@ urlpatterns = [
     path('cart_list/<int:id>/order/', views.OrderCartView.as_view(), name='order_cart'),
     path('create_cart/', views.CreateCartView.as_view(), name='create_cart'),
 ]
+

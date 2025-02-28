@@ -6,3 +6,4 @@ class MyOrdersForm(forms.ModelForm):
     class Meta:
         model = models.MyOrdersModel
         fields = '__all__'
+

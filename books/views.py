@@ -6,7 +6,9 @@ from datetime import datetime
 from . import models, forms
 from django.views import generic
 from django.urls import reverse
-
+from django.views.decorators.cache import cache_page
+from django.utils.decorators import method_decorator
+from django.core.cache import cache
 
 
 #create review
@@ -49,13 +51,18 @@ class CreateReviewView(generic.CreateView):
 #     return render(request, template_name='create_review.html', context={'form': form,})
 
 
+@method_decorator(cache_page(60*15), name='dispatch')
 class BookListView(generic.ListView):
     template_name = 'book.html'
     context_object_name = 'book'
     model = models.BookModel
 
     def get_queryset(self):
-        return self.model.objects.all().order_by('-id')
+        books = cache.get('books')
+        if not books:
+            books = self.model.objects.all().order_by('-id')
+            cache.set('books', books, 60*15)
+        return books
 
 
 # def book_list_view(request):
